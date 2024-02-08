@@ -4,6 +4,8 @@ const gallery = document.querySelector('.gallery');
 
 button.addEventListener('click', () => {
   gallery.innerHTML = '';
+  button.disabled = true;
+  button.innerHTML = 'Загрузка... <span class="loader"></span>';
 
   fetch(url)
     .then(response => response.json())
@@ -13,8 +15,13 @@ button.addEventListener('click', () => {
         img.src = imageUrl;
         gallery.appendChild(img);
       });
+
+      button.disabled = false;
+      button.innerHTML = 'Загрузить фотографии';
     })
     .catch(error => {
-      console.error('Ошибка:', error);
+      console.error('ошибка:', error);
+      button.disabled = false;
+      button.innerHTML = 'Загрузить фотографии';
     });
 });
